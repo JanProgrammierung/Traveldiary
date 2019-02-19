@@ -1,16 +1,26 @@
 package de.hsba.bi.traveldiary.Traveldiary.journey;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class Journey {
 
+    @Id
+    @GeneratedValue
     private Long id;
 
-    //Add Required!
+    //add not optional
+    @Basic(optional = false)
     private String name;
 
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "journal")
+    @OrderBy
     private List<JourneyStage> stages;
+
+    public Journey() {
+    }
 
     public Long getId() {
         return id;
@@ -33,9 +43,5 @@ public class Journey {
             stages = new ArrayList<>();
         }
         return stages;
-    }
-
-    public void setStages(List<JourneyStage> stages) {
-        this.stages = stages;
     }
 }

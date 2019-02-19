@@ -1,9 +1,21 @@
 package de.hsba.bi.traveldiary.Traveldiary.journey;
 
+import javax.persistence.*;
+
+@Entity
 public class JourneyStage {
 
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    @ManyToOne
+    private Journey journey;
+
+    @Basic(optional = false)
     private String name;
 
+    @Basic(optional = false)
     private Double kilometer;
 
     //optional
@@ -48,5 +60,17 @@ public class JourneyStage {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public Journey getJourney() {
+        return journey;
+    }
+
+    public void setJourney(Journey journey) {
+        this.journey = journey;
     }
 }

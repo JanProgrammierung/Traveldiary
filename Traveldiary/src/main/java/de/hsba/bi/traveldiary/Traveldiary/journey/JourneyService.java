@@ -1,10 +1,12 @@
 package de.hsba.bi.traveldiary.Traveldiary.journey;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 
 @Service
+@Transactional
 public class JourneyService {
 
     private final JourneyRepository repository;
@@ -24,7 +26,8 @@ public class JourneyService {
     }
 
     public void addJourneyStage(Journey journey, JourneyStage stage) {
-        journey.getEntries().add(stage);
+        stage.setJourney(journey);
+        journey.getStages().add(stage);
     }
 
     public Collection<Journey> getAll() {
