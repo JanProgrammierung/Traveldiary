@@ -8,15 +8,33 @@
         <h1>Deine Reisetagebücher</h1>
     </div>
 
+    <form action="/journeys" method="get" class="form-inline">
+        <div class="form-group">
+            <input name="suche" type="text" placeholder="Etappe" class="form-control" th:value="${suche}"/>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-default">Suchen</button>
+        </div>
+    </form>
+
+    <hr/>
+
     <ul class="list-unstyled">
         <li th:each="journey : ${journeys}">
             <a th:href="${'/journeys/' + journey.id}" th:text="${journey.name}"></a>
         </li>
     </ul>
 
-    <form action="/journeys" method="post" class="form-inline">
-        <input name="name" type="text" placeholder="Name" class="form-control">
-        <button type="submit" class="btn btn-primary">Anlegen</button>
+    <form action="/journeys" method="post" class="form-inline" th:object="${journeyForm}">
+        <div class="form-group" th:classappend="${#fields.hasErrors('name') ? 'has-error' : ''}">
+            <input name="name" type="text" class="form-control" placeholder="Name" th:field="*{name}"/>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Eintragen</button>
+        </div>
+        <div class="form-group">
+            <span class="text-danger" th:errors="*{name}"/>
+        </div>
     </form>
 </div>
 </body>

@@ -15,7 +15,7 @@ public class Journey {
     @Basic(optional = false)
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "journal")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "journey")
     @OrderBy
     private List<JourneyStage> stages;
 
