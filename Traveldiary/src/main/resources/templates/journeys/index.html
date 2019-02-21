@@ -1,19 +1,31 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{layout}">
 <body>
 <div layout:fragment="content">
     <div class="page-header">
+        <form sec:authorize="authenticated"
+              action="/logout" class="pull-right" method="post">
+            <button type="submit" class="btn btn-xs btn-link">
+                <span th:text="${#httpServletRequest.remoteUser}" />
+                abmelden
+            </button>
+        </form>
+        <a sec:authorize="anonymous" href="/login" class="pull-right">Anmelden</a>
         <h1>Deine Reisetagebücher</h1>
     </div>
 
     <form action="/journeys" method="get" class="form-inline">
         <div class="form-group">
-            <input name="suche" type="text" placeholder="Etappe" class="form-control" th:value="${suche}"/>
+            <input name="suche" type="text" placeholder="Etappenname" class="form-control" th:value="${suche}"/>
         </div>
         <div class="form-group">
             <button type="submit" class="btn btn-default">Suchen</button>
+        </div>
+        <div class="form-group help">
+            <span> Suche nach Reisen, die den gewünschten Ort als Etappe beinhalten</span>
         </div>
     </form>
 
@@ -25,7 +37,7 @@
         </li>
     </ul>
 
-    <form action="/journeys" method="post" class="form-inline" th:object="${journeyForm}">
+    <form sec:authorize="authenticated" id="createForm" action="/journeys" method="post" class="form-inline" th:object="${journeyForm}">
         <div class="form-group" th:classappend="${#fields.hasErrors('name') ? 'has-error' : ''}">
             <input name="name" type="text" class="form-control" placeholder="Name" th:field="*{name}"/>
         </div>

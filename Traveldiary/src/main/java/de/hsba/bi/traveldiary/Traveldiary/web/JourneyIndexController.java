@@ -2,6 +2,7 @@ package de.hsba.bi.traveldiary.Traveldiary.web;
 
 import de.hsba.bi.traveldiary.Traveldiary.journey.Journey;
 import de.hsba.bi.traveldiary.Traveldiary.journey.JourneyService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -36,6 +37,7 @@ public class JourneyIndexController {
     }
 
     @PostMapping
+    @PreAuthorize("authenticated")
     public String create(@ModelAttribute("journeyForm") @Valid JourneyForm journeyForm, BindingResult journeyBinding) {
         if (journeyBinding.hasErrors()) {
             return "journeys/index";

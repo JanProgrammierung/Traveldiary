@@ -11,20 +11,14 @@ import java.util.Collection;
 public class JourneyService {
 
     private final JourneyRepository repository;
+    private final JourneyStageRepository stageRepository;
 
-    //check at the end whether you might delete some functions because there might be a chance that you do not use them
-
-    public JourneyService(JourneyRepository repository) {
+    public JourneyService(JourneyRepository repository, JourneyStageRepository stageRepository) {
         this.repository = repository;
+        this.stageRepository = stageRepository;
     }
 
     public Journey save(Journey journey) {
-        return repository.save(journey);
-    }
-
-    public Journey createJourney(String name) {
-        Journey journey = new Journey();
-        journey.setName(name);
         return repository.save(journey);
     }
 
@@ -37,15 +31,19 @@ public class JourneyService {
         journey.getStages().add(stage);
     }
 
-    public Collection<Journey> getAll() {
-        return repository.findAll();
-    }
-
     public Collection<Journey> findJourneys(String search) {
         return StringUtils.hasText(search) ? repository.findByDescription("%" + search + "%") : repository.findAll();
     }
 
     public void delete(Long id) {
         this.repository.deleteById(id);
+    }
+
+    public JourneyStage findStage(Long id) {
+        return stageRepository.findById(id).orElse(null);
+    }
+
+    public JourneyStage save(JourneyStage stage) {
+        return stageRepository.save(stage);
     }
 }

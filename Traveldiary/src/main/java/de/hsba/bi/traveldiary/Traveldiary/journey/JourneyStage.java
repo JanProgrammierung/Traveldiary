@@ -20,7 +20,6 @@ public class JourneyStage {
 
     //optional
     //evtl. Liste?
-    //Min Length einfügen
     private String notes;
 
     public JourneyStage() {
@@ -73,4 +72,6 @@ public class JourneyStage {
     public void setJourney(Journey journey) {
         this.journey = journey;
     }
+
+
 }

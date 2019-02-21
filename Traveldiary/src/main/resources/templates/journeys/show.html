@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{layout}">
 <body>
 <div layout:fragment="content">
 
     <div class="page-header">
-        <h1 th:text="${'Reise ' + journey.name}"></h1>
-        <form th:action="${'/journeys/' + journey.id + '/delete'}" method="post" class="form">
+        <h1 th:text="${journey.name + ' Reise'}"></h1>
+        <form th:if="${journey.ownedByCurrentUser}" th:action="${'/journeys/' + journey.id + '/delete'}" method="post" class="form" id="deleteForm">
             <button type="submit" class="btn btn-danger">Löschen</button>
+            <button type="button" class="btn btn-default" id="changeButton">Bearbeiten</button>
         </form>
     </div>
 
-    <form th:action="${'/journeys/' + journey.id}" method="post" th:object="${journeyForm}">
+    <form th:if="${journey.ownedByCurrentUser}" th:action="${'/journeys/' + journey.id}" method="post" th:object="${journeyForm}" id="changeForm">
         <div class="form-group" th:classappend="${#fields.hasErrors('name') ? 'has-error' : ''}">
             <label>Neuer Reisename</label>
             <input name="name" type="text" class="form-control" th:field="*{name}"/>
@@ -25,34 +27,37 @@
 
     <table th:if="${!journey.stages.empty}" class="table">
         <tr>
-            <th>Etappe</th>
+            <th>Etappenziel</th>
             <th>Kilometer</th>
-            <!-- optional einfügen (auch unten)-->
             <th>Notizen</th>
         </tr>
         <tr th:each="stage : ${journey.stages}">
             <td th:text="${stage.name}"></td>
             <td th:text="${#numbers.formatDecimal(stage.kilometer, 1, 1)}"></td>
             <td th:text="${stage.notes}"></td>
+            <td><a sec:authorize="authenticated" th:href="${'/stages/' + stage.id}">Bearbeiten</a></td>
         </tr>
     </table>
 
     <hr/>
 
     <div>
-        <h2>Neue Etappe</h2>
-        <form th:action="${'/journeys/' + journey.id + '/stages'}" method="post" th:object="${journeyStageForm}">
+        <form sec:authorize="authenticated" th:action="${'/journeys/' + journey.id + '/stages'}" method="post" th:object="${journeyStageForm}">
+            <h2>Neue Etappe</h2>
             <div class="form-group">
-                <label>Name</label>
+                <label>Ziel</label>
                 <input name="name" type="text" class="form-control" />
+                <label class="text-danger" th:errors="*{name}"/>
             </div>
             <div class="form-group">
                 <label>Kilometer</label>
                 <input name="kilometer" th:field="*{kilometer}" type="number" min="0" step="0.1" class="form-control"/>
+                <label class="text-danger" th:errors="*{kilometer}"/>
             </div>
             <div class="form-group">
-                <label>Notizen</label>
+                <label>Notizen (optional)</label>
                 <input name="notes" type="text" class="form-control" />
+                <label class="text-danger" th:errors="*{notes}"/>
             </div>
             <div class="form-group">
                 <button type="submit" class="btn btn-primary">Eintragen</button>
@@ -62,7 +67,7 @@
 
     <hr/>
     <p class="small">
-        <a href="/journeys/">Index</a>
+        <a href="/journeys/">Zurück zur Startseite</a>
     </p>
 </div>
 </body>

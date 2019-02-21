@@ -3,6 +3,7 @@ package de.hsba.bi.traveldiary.Traveldiary.web;
 import de.hsba.bi.traveldiary.Traveldiary.journey.Journey;
 import de.hsba.bi.traveldiary.Traveldiary.journey.JourneyService;
 import de.hsba.bi.traveldiary.Traveldiary.journey.JourneyStage;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -40,6 +41,7 @@ public class JourneyShowController {
     }
 
     @PostMapping
+    @PreAuthorize("authenticated")
     public String change(Model model, @PathVariable("id") Long id,
                          @ModelAttribute("journeyForm") @Valid JourneyForm journeyForm, BindingResult journeyBinding) {
         if (journeyBinding.hasErrors()) {
@@ -51,6 +53,7 @@ public class JourneyShowController {
     }
 
     @PostMapping(path = "/stages")
+    @PreAuthorize("authenticated")
     public String addStage(Model model, @PathVariable("id") Long id,
                            @ModelAttribute("journeyStageForm") @Valid JourneyStageForm stageForm, BindingResult stageBinding) {
         Journey journey = getJourney(id);
@@ -63,6 +66,7 @@ public class JourneyShowController {
     }
 
     @PostMapping(path = "/delete")
+    @PreAuthorize("authenticated")
     public String delete(@PathVariable("id") Long id) {
         journeyService.delete(id);
         return "redirect:/journeys/";
