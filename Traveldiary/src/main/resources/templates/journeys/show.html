@@ -35,14 +35,14 @@
             <td th:text="${stage.name}"></td>
             <td th:text="${#numbers.formatDecimal(stage.kilometer, 1, 1)}"></td>
             <td th:text="${stage.notes}"></td>
-            <td><a sec:authorize="authenticated" th:href="${'/stages/' + stage.id}">Bearbeiten</a></td>
+            <td><a th:if="${journey.ownedByCurrentUser}" th:href="${'/stages/' + stage.id}">Bearbeiten</a></td>
         </tr>
     </table>
 
     <hr/>
 
     <div>
-        <form sec:authorize="authenticated" th:action="${'/journeys/' + journey.id + '/stages'}" method="post" th:object="${journeyStageForm}">
+        <form th:if="${journey.ownedByCurrentUser}" th:action="${'/journeys/' + journey.id + '/stages'}" method="post" th:object="${journeyStageForm}">
             <h2>Neue Etappe</h2>
             <div class="form-group">
                 <label>Ziel</label>

@@ -14,7 +14,6 @@ public class JourneyStageForm {
     @NotNull(message = "Bitte geben Sie die Entfernung an")
     private Double kilometer;
 
-    //optional!!!
     private String notes;
 
     public String getName() {
