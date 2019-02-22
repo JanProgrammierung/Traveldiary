@@ -11,11 +11,11 @@ public class JourneyForm {
     private String name;
 
     public String getName() {
-        return name.trim();
+        return name;
     }
 
     public void setName(String name) {
         //with trim() to avoid errors in terms with the @Size annotation because otherwise blank space is considered too
-        this.name = name.trim();
+        this.name = name;
     }
 }

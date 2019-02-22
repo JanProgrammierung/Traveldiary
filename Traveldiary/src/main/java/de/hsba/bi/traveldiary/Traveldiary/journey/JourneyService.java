@@ -39,6 +39,10 @@ public class JourneyService {
         this.repository.deleteById(id);
     }
 
+    public void deleteStage(Long id) {
+        this.stageRepository.deleteById(id);
+    }
+
     public JourneyStage findStage(Long id) {
         return stageRepository.findById(id).orElse(null);
     }

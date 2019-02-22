@@ -1,12 +1,20 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{layout}">
 <body>
 <div layout:fragment="content">
     <div class="page-header">
         <h1 th:text="${'Etappe der Reise ' + stage.journey.name + ' bearbeiten'}"></h1>
     </div>
+
+    <form th:if="${stage.journey.ownedByCurrentUser}" th:action="${'/stages/' + stage.id + '/delete'}" method="post" class="form" id="deleteForm">
+        <div class="form-group">
+            <button type="submit" class="btn btn-danger">Löschen</button>
+        </div>
+    </form>
+
     <form th:action="${'/stages/' + stage.id}" method="post" th:object="${stageForm}">
         <div class="form-group">
             <label>Name</label>
