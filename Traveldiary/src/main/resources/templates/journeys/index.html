@@ -33,7 +33,7 @@
 
     <ul class="list-unstyled">
         <li th:each="journey : ${journeys}">
-            <a th:href="${'/journeys/' + journey.id}" th:text="${journey.name}"></a>
+            <a th:if="${journey.ownedByCurrentUser}" th:href="${'/journeys/' + journey.id}" th:text="${journey.name}"></a>
         </li>
     </ul>
 
