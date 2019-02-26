@@ -29,6 +29,17 @@ public class JourneyIndexController {
         return journeyService.findJourneys(search);
     }
 
+    @ModelAttribute("totalKilometers")
+    public double totalKilometers() {
+        double totalKilometers = 0.00;
+        for (Journey journey : journeyService.findJourneys("")) {
+            if (journey.isOwnedByCurrentUser()) {
+                totalKilometers += journey.computeKilometers();
+            }
+        }
+        return totalKilometers;
+    }
+
     @GetMapping
     public String index(Model model, @RequestParam(value = "suche", required = false) String search) {
         model.addAttribute("suche", search);

@@ -3,9 +3,7 @@ package de.hsba.bi.traveldiary.Traveldiary.journey;
 import de.hsba.bi.traveldiary.Traveldiary.user.User;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 public class Journey {
@@ -48,6 +46,15 @@ public class Journey {
             stages = new ArrayList<>();
         }
         return stages;
+    }
+
+    public double computeKilometers() {
+        double kilometers = 0;
+        for (JourneyStage stage : getStages()) {
+            kilometers += stage.getKilometer();
+        }
+        // round the result?
+        return kilometers;
     }
 
     @PrePersist

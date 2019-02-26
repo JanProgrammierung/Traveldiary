@@ -48,6 +48,13 @@
             <span class="text-danger" th:errors="*{name}"/>
         </div>
     </form>
+
+    <hr/>
+
+    <div sec:authorize="authenticated">
+        <strong th:text="'Gesamtkilometer deiner angelegten Reisen: ' + ${totalKilometers}"></strong>
+    </div>
+
 </div>
 </body>
 </html>
