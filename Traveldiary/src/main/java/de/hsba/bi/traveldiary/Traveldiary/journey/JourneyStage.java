@@ -19,22 +19,9 @@ public class JourneyStage {
     private Double kilometer;
 
     //optional
-    //evtl. Liste?
     private String notes;
 
     public JourneyStage() {
-    }
-
-    public JourneyStage(String name, Double kilometer, String notes) {
-        this.name = name;
-        this.kilometer = kilometer;
-        this.notes = notes;
-    }
-
-    //nötig, weil Notizen optional sind?
-    public JourneyStage(String name, Double kilometer) {
-        this.name = name;
-        this.kilometer = kilometer;
     }
 
     public String getName() {

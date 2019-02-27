@@ -29,6 +29,7 @@ public class JourneyIndexController {
         return journeyService.findJourneys(search);
     }
 
+// Implementierung im Controller war notwendig; keine andere Möglichkeit?
     @ModelAttribute("totalKilometers")
     public double totalKilometers() {
         double totalKilometers = 0.00;

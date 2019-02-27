@@ -52,7 +52,7 @@
     <hr/>
 
     <div sec:authorize="authenticated">
-        <strong th:text="'Gesamtkilometer deiner angelegten Reisen: ' + ${totalKilometers}"></strong>
+        <strong th:text="'Gesamtkilometer deiner angelegten Reisen: ' + ${#numbers.formatDecimal(totalKilometers, 1, 1)}"></strong>
     </div>
 
 </div>

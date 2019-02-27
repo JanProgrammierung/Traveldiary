@@ -16,19 +16,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        // brauch der User Zugriff zu all den Seiten?
         http.csrf().disable()
                 .headers().frameOptions().sameOrigin().and() // allow the h2-console to be used in a frame
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers("/h2-console/**").permitAll() // enable access to the h2-console
+                .antMatchers("/registration").permitAll()
                 .antMatchers("/js/**").permitAll() // permit JS resources
                 .antMatchers("/journeys/**").permitAll()
-                .antMatchers("/users/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
+
                 .and()
                 .formLogin()
                 .loginPage("/login")
                 .permitAll()
+
                 .and()
                 .logout().logoutSuccessUrl("/journeys/")
                 .permitAll();

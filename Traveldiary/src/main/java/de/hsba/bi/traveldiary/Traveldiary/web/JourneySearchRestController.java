@@ -25,10 +25,6 @@ public class JourneySearchRestController {
         public String getName() {
             return name;
         }
-
-        public String getLink() {
-            return link;
-        }
     }
 
     private final JourneyService journeyService;

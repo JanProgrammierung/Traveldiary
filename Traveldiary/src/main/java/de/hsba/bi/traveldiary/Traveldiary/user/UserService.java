@@ -23,21 +23,18 @@ public class UserService {
     @PostConstruct
     public void init() {
         if (userRepository.count() == 0) {
-            createUser("admin", "admin", "ADMIN");
-            createUser("Anne", "123456", "USER");
-            createUser("Benedikt", "987654", "USER");
-            createUser("Charlotte", "password", "USER");
-            createUser("Mats", "password", "USER");
-            createUser("Nina", "password", "USER");
-            createUser("Ole", "password", "USER");
-            createUser("Xenia", "password", "USER");
-            createUser("Yves", "password", "USER");
-            createUser("Zoe", "password", "USER");
+            createUser("Ole", "password");
+            createUser("Zoe", "password");
         }
     }
 
-    private void createUser(String username, String password, String role) {
-        userRepository.save(new User(username, passwordEncoder.encode(password), role));
+    public void createUserByEntiy (User user){
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userRepository.save(user);
+    }
+
+    private void createUser(String username, String password) {
+        userRepository.save(new User(username, passwordEncoder.encode(password)));
     }
 
     public List<User> findAll() {

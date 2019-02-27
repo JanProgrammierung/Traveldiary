@@ -16,6 +16,11 @@ public class IndexController {
         return "redirect:/journeys/";
     }
 
+    @GetMapping("/index")
+    public String linkIndex() {
+        return "redirect:/journeys/";
+    }
+
     @GetMapping("/login")
     public String login() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
