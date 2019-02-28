@@ -22,6 +22,8 @@ public class Journey {
     @OrderBy
     private List<JourneyStage> stages;
 
+    private boolean forAll;
+
     public Journey() {
     }
 
@@ -82,5 +84,13 @@ public class Journey {
     @Override
     public int hashCode() {
         return Objects.hashCode(id);
+    }
+
+    public boolean isForAll() {
+        return forAll;
+    }
+
+    public void setForAll(boolean forAll) {
+        this.forAll = forAll;
     }
 }

@@ -33,8 +33,12 @@ public class JourneyStageController {
 
     @GetMapping
     public String show(Model model, @PathVariable("id") Long id) {
-        model.addAttribute("stageForm", journeyFormAssembler.toForm(getStage(id)));
-        return "journeys/stage";
+        JourneyStage stage = getStage(id);
+        if (stage.getJourney().isOwnedByCurrentUser()) {
+            model.addAttribute("stageForm", journeyFormAssembler.toForm(getStage(id)));
+            return "journeys/stage";
+        }
+        throw new  InvalidOperationException("Sie sind nicht berechtigt diese Etappe zu editieren!");
     }
 
     @PostMapping

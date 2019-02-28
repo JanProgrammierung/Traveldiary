@@ -10,11 +10,13 @@ public class JourneyFormAssembler {
     JourneyForm toForm(Journey journey) {
         JourneyForm form = new JourneyForm();
         form.setName(journey.getName());
+        form.setForAll(journey.isForAll());
         return form;
     }
 
     Journey update(Journey journey, JourneyForm form) {
         journey.setName(form.getName());
+        journey.setForAll(form.isForAll());
         return journey;
     }
 

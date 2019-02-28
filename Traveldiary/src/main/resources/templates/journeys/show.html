@@ -10,7 +10,6 @@
         <h1 th:text="${journey.name + ' Reise'}"></h1>
         <form th:if="${journey.ownedByCurrentUser}" th:action="${'/journeys/' + journey.id + '/delete'}" method="post" class="form" id="deleteForm">
             <button type="submit" class="btn btn-danger">Löschen</button>
-            <button type="button" class="btn btn-default" id="changeButton">Bearbeiten</button>
         </form>
     </div>
 
@@ -20,6 +19,10 @@
             <input name="name" type="text" class="form-control" th:field="*{name}"/>
             <span class="text-danger" th:errors="*{name}"/>
         </div>
+            <div class="ui checkbox">
+                <input type="checkbox" name="forAll" onchange="journey.isForAll()" th:checked="${journey.forAll}">
+                <label>Öffentlich</label>
+            </div>
         <div class="form-group">
             <button type="submit" class="btn btn-primary">Ändern</button>
         </div>

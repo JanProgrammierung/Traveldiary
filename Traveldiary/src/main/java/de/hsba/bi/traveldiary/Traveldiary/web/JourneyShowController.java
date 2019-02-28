@@ -35,9 +35,14 @@ public class JourneyShowController {
 
     @GetMapping
     public String show(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("journeyForm", journeyFormAssembler.toForm(getJourney(id)));
-        model.addAttribute("journeyStageForm", new JourneyStageForm());
-        return "journeys/show";
+        Journey journey = getJourney(id);
+        if (journey.isOwnedByCurrentUser() || journey.isForAll()) {
+            model.addAttribute("journeyForm", journeyFormAssembler.toForm(journey));
+            model.addAttribute("journeyStageForm", new JourneyStageForm());
+            return "journeys/show";
+        }
+        //message nötig?
+        throw new InvalidOperationException("Sie sind nicht berechtigt auf diese Reise zuzugreifen.");
     }
 
     @PostMapping

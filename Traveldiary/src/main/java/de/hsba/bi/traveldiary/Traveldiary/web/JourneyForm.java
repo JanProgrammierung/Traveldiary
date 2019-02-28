@@ -5,10 +5,12 @@ import javax.validation.constraints.Size;
 public class JourneyForm {
 
     @Size.List({
-            @Size(min = 3, message = "Das Ziel der Etappe muss mindestens 3 Zeichen beinhalten"),
-            @Size(max = 255, message = "Das Ziel der Etappe darf nicht mehr als 255 Zeichen beinhalten")
+            @Size(min = 3, message = "Der Name der Reise muss mindestens 3 Zeichen beinhalten"),
+            @Size(max = 255, message = "Der Name der Reise darf nicht mehr als 255 Zeichen beinhalten")
     })
     private String name;
+
+    private boolean forAll;
 
     public String getName() {
         return name;
@@ -16,5 +18,13 @@ public class JourneyForm {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean isForAll() {
+        return forAll;
+    }
+
+    public void setForAll(boolean forAll) {
+        this.forAll = forAll;
     }
 }

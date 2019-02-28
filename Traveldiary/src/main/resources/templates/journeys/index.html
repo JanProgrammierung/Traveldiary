@@ -31,12 +31,28 @@
 
     <hr/>
 
+    <h2>Deine Reisen:</h2>
     <ul class="list-unstyled">
         <li th:each="journey : ${journeys}">
             <a th:if="${journey.ownedByCurrentUser}" th:href="${'/journeys/' + journey.id}" th:text="${journey.name}"></a>
         </li>
     </ul>
+    <div sec:authorize="authenticated">
+        <strong th:text="'Gesamtkilometer deiner angelegten Reisen: ' + ${#numbers.formatDecimal(totalKilometers, 1, 1)}"></strong>
+    </div>
 
+    <hr/>
+
+    <h2>Alle veröffentlichen Reisen:</h2>
+    <ul class="list-unstyled">
+        <li th:each="journey : ${journeys}">
+            <a th:if="${journey.isForAll()}" th:href="${'/journeys/' + journey.id}" th:text="${journey.name}"></a>
+        </li>
+    </ul>
+
+    <hr/>
+
+    <h2>Lege eine neue Reise in deinem Tagebuch an:</h2>
     <form sec:authorize="authenticated" id="createForm" action="/journeys" method="post" class="form-inline" th:object="${journeyForm}">
         <div class="form-group" th:classappend="${#fields.hasErrors('name') ? 'has-error' : ''}">
             <input name="name" type="text" class="form-control" placeholder="Name" th:field="*{name}"/>
@@ -48,12 +64,6 @@
             <span class="text-danger" th:errors="*{name}"/>
         </div>
     </form>
-
-    <hr/>
-
-    <div sec:authorize="authenticated">
-        <strong th:text="'Gesamtkilometer deiner angelegten Reisen: ' + ${#numbers.formatDecimal(totalKilometers, 1, 1)}"></strong>
-    </div>
 
 </div>
 </body>
