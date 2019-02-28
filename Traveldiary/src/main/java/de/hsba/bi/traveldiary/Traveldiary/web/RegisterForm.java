@@ -7,15 +7,15 @@ import javax.validation.constraints.Size;
 public class RegisterForm {
 
     @Size.List({
-            @Size(min = 4, message = "Der Benutzername muss mindestens 4 Zeichen beinhalten."),
-            @Size(max = 30, message = "Der Benutzername darf nicht mehr als 30 Zeichen beinhalten.")
+            @Size(min = 4, message = "{validation.username.notTooShort}"),
+            @Size(max = 30, message = "{validation.username.notTooLong}")
     })
     private String name;
 
 
     @Size.List({
-            @Size(min = 6, message = "Das Passwort muss mindestens 6 Zeichen beinhalten."),
-            @Size(max = 30, message = "Das Passwort darf nicht mehr als 30 Zeichen beinhalten.")
+            @Size(min = 6, message = "{validation.password.notTooShort}"),
+            @Size(max = 30, message = "{validation.password.notTooLong}")
     })
     private String password;
 

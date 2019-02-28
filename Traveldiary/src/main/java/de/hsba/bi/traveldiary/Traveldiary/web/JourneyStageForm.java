@@ -6,12 +6,12 @@ import javax.validation.constraints.Size;
 public class JourneyStageForm {
 
     @Size.List({
-            @Size(min = 3, message = "Das Ziel der Etappe muss mindestens 3 Zeichen beinhalten"),
-            @Size(max = 255, message = "Das Ziel der Etappe darf nicht mehr als 255 Zeichen beinhalten")
+            @Size(min = 3, message = "{validation.stagename.notTooShort}"),
+            @Size(max = 255, message = "{validation.stagename.notTooLong}")
     })
     private String name;
 
-    @NotNull(message = "Bitte geben Sie die Entfernung an")
+    @NotNull(message = "{validation.kilometer.notEmpty}")
     private Double kilometer;
 
     private String notes;

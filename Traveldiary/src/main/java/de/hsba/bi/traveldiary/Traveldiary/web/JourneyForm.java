@@ -5,8 +5,8 @@ import javax.validation.constraints.Size;
 public class JourneyForm {
 
     @Size.List({
-            @Size(min = 3, message = "Der Name der Reise muss mindestens 3 Zeichen beinhalten"),
-            @Size(max = 255, message = "Der Name der Reise darf nicht mehr als 255 Zeichen beinhalten")
+            @Size(min = 3, message = "{validation.name.notTooShort}"),
+            @Size(max = 255, message = "{validation.name.notTooLong}")
     })
     private String name;
 

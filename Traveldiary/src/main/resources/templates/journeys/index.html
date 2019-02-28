@@ -21,8 +21,8 @@ $(document).ready(function() {
     <div class="page-header">
         <form sec:authorize="authenticated"
               action="/logout" class="pull-right" method="post">
-            <button th:text="#{logout}" type="submit" class="btn btn-xs btn-link">
-                <span th:text="${#httpServletRequest.remoteUser}"/>
+            <button type="submit" class="btn btn-xs btn-link">
+                <span th:text="${#httpServletRequest.remoteUser} + ' ' + #{logout}"/>
             </button>
         </form>
         <a sec:authorize="anonymous" href="/login" class="pull-right" th:text="#{tologin}"></a>
