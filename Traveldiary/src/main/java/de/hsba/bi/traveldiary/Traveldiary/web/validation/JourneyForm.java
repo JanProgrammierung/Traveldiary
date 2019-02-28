@@ -1,4 +1,4 @@
-package de.hsba.bi.traveldiary.Traveldiary.web;
+package de.hsba.bi.traveldiary.Traveldiary.web.validation;
 
 import javax.validation.constraints.Size;
 

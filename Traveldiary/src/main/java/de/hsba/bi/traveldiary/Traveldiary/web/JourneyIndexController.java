@@ -2,6 +2,8 @@ package de.hsba.bi.traveldiary.Traveldiary.web;
 
 import de.hsba.bi.traveldiary.Traveldiary.journey.Journey;
 import de.hsba.bi.traveldiary.Traveldiary.journey.JourneyService;
+import de.hsba.bi.traveldiary.Traveldiary.web.validation.JourneyForm;
+import de.hsba.bi.traveldiary.Traveldiary.web.validation.JourneyFormAssembler;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

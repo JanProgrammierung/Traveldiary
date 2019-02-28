@@ -2,6 +2,8 @@ package de.hsba.bi.traveldiary.Traveldiary.web;
 
 import de.hsba.bi.traveldiary.Traveldiary.user.User;
 import de.hsba.bi.traveldiary.Traveldiary.user.UserService;
+import de.hsba.bi.traveldiary.Traveldiary.web.validation.RegisterForm;
+import de.hsba.bi.traveldiary.Traveldiary.web.validation.RegisterFormAssembler;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

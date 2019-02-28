@@ -1,4 +1,4 @@
-package de.hsba.bi.traveldiary.Traveldiary.web;
+package de.hsba.bi.traveldiary.Traveldiary.web.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

@@ -2,6 +2,10 @@ package de.hsba.bi.traveldiary.Traveldiary.web;
 
 import de.hsba.bi.traveldiary.Traveldiary.journey.JourneyService;
 import de.hsba.bi.traveldiary.Traveldiary.journey.JourneyStage;
+import de.hsba.bi.traveldiary.Traveldiary.web.exception.InvalidOperationException;
+import de.hsba.bi.traveldiary.Traveldiary.web.exception.NotFoundException;
+import de.hsba.bi.traveldiary.Traveldiary.web.validation.JourneyFormAssembler;
+import de.hsba.bi.traveldiary.Traveldiary.web.validation.JourneyStageForm;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,7 +42,7 @@ public class JourneyStageController {
             model.addAttribute("stageForm", journeyFormAssembler.toForm(getStage(id)));
             return "journeys/stage";
         }
-        throw new  InvalidOperationException("Sie sind nicht berechtigt diese Etappe zu editieren!");
+        throw new InvalidOperationException("Sie sind nicht berechtigt diese Etappe zu editieren!");
     }
 
     @PostMapping

@@ -1,4 +1,4 @@
-package de.hsba.bi.traveldiary.Traveldiary.web;
+package de.hsba.bi.traveldiary.Traveldiary.web.validation;
 
 import de.hsba.bi.traveldiary.Traveldiary.journey.Journey;
 import de.hsba.bi.traveldiary.Traveldiary.journey.JourneyStage;
@@ -7,20 +7,20 @@ import org.springframework.stereotype.Component;
 @Component
 public class JourneyFormAssembler {
 
-    JourneyForm toForm(Journey journey) {
+    public JourneyForm toForm(Journey journey) {
         JourneyForm form = new JourneyForm();
         form.setName(journey.getName());
         form.setForAll(journey.isForAll());
         return form;
     }
 
-    Journey update(Journey journey, JourneyForm form) {
+    public Journey update(Journey journey, JourneyForm form) {
         journey.setName(form.getName());
         journey.setForAll(form.isForAll());
         return journey;
     }
 
-    JourneyStageForm toForm(JourneyStage stage) {
+    public JourneyStageForm toForm(JourneyStage stage) {
         JourneyStageForm form = new JourneyStageForm();
         form.setName(stage.getName());
         form.setKilometer(stage.getKilometer());
@@ -28,7 +28,7 @@ public class JourneyFormAssembler {
         return form;
     }
 
-    JourneyStage update(JourneyStage stage, JourneyStageForm form) {
+    public JourneyStage update(JourneyStage stage, JourneyStageForm form) {
         stage.setName(form.getName());
         stage.setKilometer(form.getKilometer());
         stage.setNotes(form.getNotes());
