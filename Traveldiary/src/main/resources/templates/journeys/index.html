@@ -49,7 +49,7 @@ $(document).ready(function() {
             <a th:if="${journey.ownedByCurrentUser}" th:href="${'/journeys/' + journey.id}" th:text="${journey.name}"></a>
         </li>
     </ul>
-    <div sec:authorize="authenticated">
+    <div th:if="${totalKilometers > 0}" sec:authorize="authenticated">
         <strong th:text="#{totaldistance1} + ${#numbers.formatDecimal(totalKilometers, 1, 1)} + ' ' + #{totaldistance2}"></strong>
     </div>
 
