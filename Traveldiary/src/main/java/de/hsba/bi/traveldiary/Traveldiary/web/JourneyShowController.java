@@ -3,7 +3,7 @@ package de.hsba.bi.traveldiary.Traveldiary.web;
 import de.hsba.bi.traveldiary.Traveldiary.journey.Journey;
 import de.hsba.bi.traveldiary.Traveldiary.journey.JourneyService;
 import de.hsba.bi.traveldiary.Traveldiary.journey.JourneyStage;
-import de.hsba.bi.traveldiary.Traveldiary.web.exception.InvalidOperationException;
+import de.hsba.bi.traveldiary.Traveldiary.web.exception.ForbiddenException;
 import de.hsba.bi.traveldiary.Traveldiary.web.exception.NotFoundException;
 import de.hsba.bi.traveldiary.Traveldiary.web.validation.JourneyForm;
 import de.hsba.bi.traveldiary.Traveldiary.web.validation.JourneyFormAssembler;
@@ -45,9 +45,8 @@ public class JourneyShowController {
             model.addAttribute("journeyForm", journeyFormAssembler.toForm(journey));
             model.addAttribute("journeyStageForm", new JourneyStageForm());
             return "journeys/show";
-        }
-        //message nötig?
-        throw new InvalidOperationException("Sie sind nicht berechtigt auf diese Reise zuzugreifen.");
+            //keine Unauthorized Exception, da die Stages Bearbeiten Seiten nie öffentlich sind
+        } else throw new ForbiddenException();
     }
 
     @PostMapping
