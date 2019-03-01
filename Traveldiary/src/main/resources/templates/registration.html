@@ -3,17 +3,19 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout}">
 <body>
-
 <div layout:fragment="content">
+    <!--Show page header-->
     <div class="page-header">
         <h1 th:text="#{registerhead}"></h1>
     </div>
-    <form th:action="@{/registration}" method="post" class="form-horizontal" th:object="${registerForm}">
 
+    <form th:action="@{/registration}" method="post" class="form-horizontal" th:object="${registerForm}">
+        <!--If there is any error with the input, show registration error message-->
         <div th:if="${#fields.hasErrors('*')}" class="col-sm-offset-2 col-sm-10 text-danger">
             <strong th:text="#{registererror}"></strong>
         </div>
 
+        <!--Sign up form-->
         <label for="inputName" class="col-sm-2 control-label" th:text="#{username}"></label>
         <div class="col-sm-10">
             <input type="text" class="form-control" id="inputName" name="name" th:field="*{name}"/>

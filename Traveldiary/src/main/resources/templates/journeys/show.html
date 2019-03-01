@@ -5,14 +5,15 @@
       layout:decorate="~{layout}">
 <body>
 <div layout:fragment="content">
-
+    <!--Delete journey button (Only if current User is the owner)-->
     <div class="page-header">
         <h1 th:text="${journey.name + ' Reise'}"></h1>
         <form th:if="${journey.ownedByCurrentUser}" th:action="${'/journeys/' + journey.id + '/delete'}" method="post" class="form" id="deleteForm">
-            <button th:text="#{delete}" type="submit" class="btn btn-danger"></button>
+            <button th:text="#{todelete}" type="submit" class="btn btn-danger"></button>
         </form>
     </div>
 
+    <!--Change journey name or make/unmake it public (Only if current User is the owner)-->
     <form th:if="${journey.ownedByCurrentUser}" th:action="${'/journeys/' + journey.id}" method="post" th:object="${journeyForm}" id="changeForm">
         <div class="form-group" th:classappend="${#fields.hasErrors('name') ? 'has-error' : ''}">
             <label th:text="#{newname}"></label>
@@ -23,11 +24,13 @@
                 <input type="checkbox" name="forAll" onchange="journey.isForAll()" th:checked="${journey.forAll}">
                 <label th:text="#{makepublic}"></label>
             </div>
+        <!--User has to press the Submit button to commit changes-->
         <div class="form-group">
             <button th:text="#{change}" type="submit" class="btn btn-primary"></button>
         </div>
     </form>
 
+    <!--Show a list of all the stages (if there are any)-->
     <table th:if="${!journey.stages.empty}" class="table">
         <tr>
             <th th:text="#{stagegoal}"></th>
@@ -38,6 +41,7 @@
             <td th:text="${stage.name}"></td>
             <td th:text="${#numbers.formatDecimal(stage.kilometer, 1, 1)}"></td>
             <td th:text="${stage.notes}"></td>
+            <!--Link to the edit stage page (only if current User is the owner)-->
             <td><a th:if="${journey.ownedByCurrentUser}" th:href="${'/stages/' + stage.id}" th:text="#{edit}"></a></td>
         </tr>
     </table>
@@ -45,6 +49,7 @@
     <hr/>
 
     <div>
+        <!--Add a new stage (only if the current User is the owner)-->
         <form th:if="${journey.ownedByCurrentUser}" th:action="${'/journeys/' + journey.id + '/stages'}" method="post" th:object="${journeyStageForm}">
             <h2 th:text="#{newstage}"></h2>
             <div class="form-group">
@@ -69,6 +74,7 @@
     </div>
 
     <hr/>
+    <!--Link back to the index / start page-->
     <p class="small">
         <a href="/journeys/" th:text="#{backtoindex}"></a>
     </p>

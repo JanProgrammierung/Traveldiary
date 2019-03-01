@@ -23,6 +23,7 @@ public class RegisterController {
 
     private final RegisterFormAssembler registerFormAssembler;
 
+    //Constructor
     public RegisterController(UserService userService, RegisterFormAssembler registerFormAssembler) {
         this.userService = userService;
         this.registerFormAssembler = registerFormAssembler;
