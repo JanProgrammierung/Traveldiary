@@ -21,17 +21,19 @@ public class JourneyIndexController {
 
     private final JourneyFormAssembler journeyFormAssembler;
 
+    //Constructor
     public JourneyIndexController(JourneyService journeyService, JourneyFormAssembler journeyFormAssembler) {
         this.journeyService = journeyService;
         this.journeyFormAssembler = journeyFormAssembler;
     }
 
+    //journeys model attribute gets connected to the search parameter
     @ModelAttribute("journeys")
     public Collection<Journey> journeys(@RequestParam(value = "suche", required = false) String search) {
         return journeyService.findJourneys(search);
     }
 
-// Implementierung im Controller war notwendig; keine andere Möglichkeit?
+    //totalKilometers model attribute is the kilometer sum of all journeys of a user
     @ModelAttribute("totalKilometers")
     public double totalKilometers() {
         double totalKilometers = 0.00;
@@ -43,6 +45,7 @@ public class JourneyIndexController {
         return totalKilometers;
     }
 
+    //Opens the index page
     @GetMapping
     public String index(Model model, @RequestParam(value = "suche", required = false) String search) {
         model.addAttribute("suche", search);
@@ -50,6 +53,7 @@ public class JourneyIndexController {
         return "journeys/index";
     }
 
+    //Creates a new journal (only if user is logged in)
     @PostMapping
     @PreAuthorize("authenticated")
     public String create(@ModelAttribute("journeyForm") @Valid JourneyForm journeyForm, BindingResult journeyBinding) {

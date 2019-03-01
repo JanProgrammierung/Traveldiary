@@ -24,6 +24,7 @@ public class JourneyShowController {
 
     private final JourneyFormAssembler journeyFormAssembler;
 
+    //Constructor
     public JourneyShowController(JourneyService journeyService, JourneyFormAssembler journeyFormAssembler) {
         this.journeyService = journeyService;
         this.journeyFormAssembler = journeyFormAssembler;
@@ -38,6 +39,7 @@ public class JourneyShowController {
         return journey;
     }
 
+    //Opens journey show page if journey is public or it's the journey owner
     @GetMapping
     public String show(@PathVariable("id") Long id, Model model) {
         Journey journey = getJourney(id);
@@ -45,10 +47,11 @@ public class JourneyShowController {
             model.addAttribute("journeyForm", journeyFormAssembler.toForm(journey));
             model.addAttribute("journeyStageForm", new JourneyStageForm());
             return "journeys/show";
-            //keine Unauthorized Exception, da die Stages Bearbeiten Seiten nie öffentlich sind
+            //no UnauthorizedException needed, because the Edit Stages pages are never public
         } else throw new ForbiddenException();
     }
 
+    //Changes the name of the Journey or make/unmake it public
     @PostMapping
     @PreAuthorize("authenticated")
     public String change(Model model, @PathVariable("id") Long id,
@@ -61,6 +64,7 @@ public class JourneyShowController {
         return "redirect:/journeys/" + id;
     }
 
+    //Adds a new stage to the journey
     @PostMapping(path = "/stages")
     @PreAuthorize("authenticated")
     public String addStage(Model model, @PathVariable("id") Long id,
@@ -74,6 +78,7 @@ public class JourneyShowController {
         return "redirect:/journeys/" + id;
     }
 
+    //Deletes the journey
     @PostMapping(path = "/delete")
     @PreAuthorize("authenticated")
     public String delete(@PathVariable("id") Long id) {

@@ -18,15 +18,19 @@ public class Journey {
     @ManyToOne(optional = false)
     private User owner;
 
+    //Delete stages if journey is deleted
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "journey")
     @OrderBy
     private List<JourneyStage> stages;
 
+    //For the publishing feature
     private boolean forAll;
 
+    //Default Constructor
     public Journey() {
     }
 
+    //Getter and Setter + individual methods
     public Long getId() {
         return id;
     }
@@ -50,12 +54,12 @@ public class Journey {
         return stages;
     }
 
+    //calculates the kilometer sum of all stages in the journey
     public double computeKilometers() {
         double kilometers = 0;
         for (JourneyStage stage : getStages()) {
             kilometers += stage.getKilometer();
         }
-        // round the result?
         return kilometers;
     }
 

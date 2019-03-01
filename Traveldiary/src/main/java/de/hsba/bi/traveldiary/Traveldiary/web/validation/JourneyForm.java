@@ -12,6 +12,7 @@ public class JourneyForm {
 
     private boolean forAll;
 
+    //Getter and Setter
     public String getName() {
         return name;
     }

@@ -19,6 +19,7 @@ public class RegisterForm {
     })
     private String password;
 
+    //Constructors
     public RegisterForm() {
     }
 
@@ -27,6 +28,7 @@ public class RegisterForm {
         user.setPassword(getPassword());
     }
 
+    //Getter and Setter
     public String getName() {
         return name;
     }

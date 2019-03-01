@@ -23,6 +23,7 @@ public class JourneyStageController {
     private final JourneyService journeyService;
     private final JourneyFormAssembler journeyFormAssembler;
 
+    //Constructor
     public JourneyStageController(JourneyService journeyService, JourneyFormAssembler journeyFormAssembler) {
         this.journeyService = journeyService;
         this.journeyFormAssembler = journeyFormAssembler;
@@ -37,6 +38,7 @@ public class JourneyStageController {
         return stage;
     }
 
+    //Opens the stage page, but only if the journey of the stage is owned by the User
     @GetMapping
     public String show(Model model, @PathVariable("id") Long id) {
         JourneyStage stage = getStage(id);
@@ -49,6 +51,7 @@ public class JourneyStageController {
         } else throw new ForbiddenException();
     }
 
+    //Updates the stage
     @PostMapping
     public String update(
             @PathVariable("id") Long id,
@@ -61,6 +64,7 @@ public class JourneyStageController {
         return "redirect:/journeys/" + stage.getJourney().getId();
     }
 
+    //Deletes the stage
     @PostMapping(path = "/delete")
     @PreAuthorize("authenticated")
     public String delete(@PathVariable("id") Long id) {

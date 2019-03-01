@@ -12,6 +12,7 @@ public class UserAdapterService implements UserDetailsService {
 
     private final UserRepository userRepository;
 
+    //Constructor
     public UserAdapterService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }

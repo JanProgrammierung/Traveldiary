@@ -16,6 +16,7 @@ public class JourneyStageForm {
 
     private String notes;
 
+    //Getter and Setter
     public String getName() {
         return name;
     }

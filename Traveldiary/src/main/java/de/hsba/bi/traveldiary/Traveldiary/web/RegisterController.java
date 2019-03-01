@@ -28,6 +28,7 @@ public class RegisterController {
         this.registerFormAssembler = registerFormAssembler;
     }
 
+    //Opens the registration page, but only if User is not logged in
     @GetMapping("/registration")
     public String registration(Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -35,19 +36,14 @@ public class RegisterController {
         return auth instanceof AnonymousAuthenticationToken ? "registration" : "redirect:/";
     }
 
+    //Creates a new User
     @PostMapping("/registration")
     public String createUser(@ModelAttribute("registerForm")@Valid RegisterForm registerForm, BindingResult bindingResult){
         if (bindingResult.hasErrors()){
             return "registration";
         }
         User user = new User();
-        this.userService.createUserByEntiy(registerFormAssembler.update(user, registerForm));
-        /* try {
-            this.userService.createUserByEntiy(formAssembler.update(user, formValidation));
-        } catch (Exception e) {
-
-            throw new InternalServerError();
-        } */
+        this.userService.createUserByEntity(registerFormAssembler.update(user, registerForm));
         return "redirect:/index";
     }
 }

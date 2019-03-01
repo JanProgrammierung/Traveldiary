@@ -10,9 +10,7 @@ import java.util.List;
 @Repository
 public interface JourneyRepository extends JpaRepository<Journey, Long> {
 
-    //optional, not necessary; maybe delete at the end if it does not make any sense
+    //Users can search for a distinct Stage name
     @Query("select distinct j from Journey j join j.stages s where s.name like :pattern")
-    List<Journey> findByDescription(@Param("pattern") String pattern);
-
-    // add special Queries
+    List<Journey> findByStage(@Param("pattern") String pattern);
 }

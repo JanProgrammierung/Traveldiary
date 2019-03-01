@@ -15,20 +15,22 @@ public class UserService {
 
     private final PasswordEncoder passwordEncoder;
 
+    //Constructor
     public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
+    //Delete before submitting
     @PostConstruct
     public void init() {
         if (userRepository.count() == 0) {
-            createUser("Ole", "password");
-            createUser("Zoe", "password");
+            createUser("JanL", "jan123");
+            createUser("Random", "password");
         }
     }
 
-    public void createUserByEntiy (User user){
+    public void createUserByEntity(User user){
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }

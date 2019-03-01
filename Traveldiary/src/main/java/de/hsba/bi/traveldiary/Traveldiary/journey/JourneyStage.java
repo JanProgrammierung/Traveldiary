@@ -21,9 +21,11 @@ public class JourneyStage {
     //optional
     private String notes;
 
+    //Default Constructor
     public JourneyStage() {
     }
 
+    //Getters and Setters
     public String getName() {
         return name;
     }

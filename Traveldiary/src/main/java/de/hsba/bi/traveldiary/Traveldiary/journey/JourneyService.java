@@ -13,6 +13,7 @@ public class JourneyService {
     private final JourneyRepository repository;
     private final JourneyStageRepository stageRepository;
 
+    //Constructor
     public JourneyService(JourneyRepository repository, JourneyStageRepository stageRepository) {
         this.repository = repository;
         this.stageRepository = stageRepository;
@@ -31,8 +32,9 @@ public class JourneyService {
         journey.getStages().add(stage);
     }
 
+    //Users can search for a distinct Stage name
     public Collection<Journey> findJourneys(String search) {
-        return StringUtils.hasText(search) ? repository.findByDescription("%" + search + "%") : repository.findAll();
+        return StringUtils.hasText(search) ? repository.findByStage("%" + search + "%") : repository.findAll();
     }
 
     public void delete(Long id) {

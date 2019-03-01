@@ -10,6 +10,8 @@ import java.util.Objects;
 
 @Entity
 public class User implements Comparable<User> {
+
+    //returns the current User
     public static User getCurrentUser() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserAdapter) {
@@ -28,6 +30,7 @@ public class User implements Comparable<User> {
     @Column(nullable = false)
     private String password;
 
+    //Constructors
     public User() {
     }
 
@@ -40,6 +43,7 @@ public class User implements Comparable<User> {
         this.password = password;
     }
 
+    //Getters and Setters
     public Long getId() {
         return id;
     }

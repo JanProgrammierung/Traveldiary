@@ -13,7 +13,9 @@ import java.util.stream.Collectors;
 @RestController
 public class JourneySearchRestController {
 
+    //Inner static class
     public static class JourneySearchResult {
+
         private String name;
         private String link;
 
@@ -29,10 +31,12 @@ public class JourneySearchRestController {
 
     private final JourneyService journeyService;
 
+    //Constructor
     public JourneySearchRestController(JourneyService journeyService) {
         this.journeyService = journeyService;
     }
 
+    //Searches for the required journeys
     @GetMapping("/journeys/search")
     public List<JourneySearchResult> performSearch(@RequestParam(value = "search", required = false) String search) {
         Collection<Journey> journeys = journeyService.findJourneys(search);
@@ -40,6 +44,7 @@ public class JourneySearchRestController {
         return results;
     }
 
+    //Lambda expressions to build the search result
     private List<JourneySearchResult> buildResult(Collection<Journey> journeys) {
         return journeys.stream()
                 .map(journey -> new JourneySearchResult(journey.getName(), "/journeys/" + journey.getId()))
