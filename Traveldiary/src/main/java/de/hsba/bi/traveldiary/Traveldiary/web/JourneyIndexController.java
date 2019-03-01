@@ -29,11 +29,11 @@ public class JourneyIndexController {
 
     //journeys model attribute gets connected to the search parameter
     @ModelAttribute("journeys")
-    public Collection<Journey> journeys(@RequestParam(value = "suche", required = false) String search) {
+    public Collection<Journey> journeys(@RequestParam(value = "search", required = false) String search) {
         return journeyService.findJourneys(search);
     }
 
-    //totalKilometers model attribute is the kilometer sum of all journeys of a user
+    //totalKilometers model attribute is the kilometer sum of all journeys of a User
     @ModelAttribute("totalKilometers")
     public double totalKilometers() {
         double totalKilometers = 0.00;
@@ -47,13 +47,13 @@ public class JourneyIndexController {
 
     //Opens the index page
     @GetMapping
-    public String index(Model model, @RequestParam(value = "suche", required = false) String search) {
-        model.addAttribute("suche", search);
+    public String index(Model model, @RequestParam(value = "search", required = false) String search) {
+        model.addAttribute("search", search);
         model.addAttribute("journeyForm", new JourneyForm());
         return "journeys/index";
     }
 
-    //Creates a new journal (only if user is logged in)
+    //Creates a new journal (only if User is logged in)
     @PostMapping
     @PreAuthorize("authenticated")
     public String create(@ModelAttribute("journeyForm") @Valid JourneyForm journeyForm, BindingResult journeyBinding) {

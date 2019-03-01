@@ -33,7 +33,7 @@ $(document).ready(function() {
     <!--Search for a particular stage in all published journeys and the User's journeys-->
     <form action="/journeys" method="get" class="form-inline">
         <div class="form-group">
-            <input name="suche" type="text" placeholder="Melbourne, Santiago,..." class="form-control" th:value="${suche}"/>
+            <input name="search" type="text" placeholder="Melbourne, Santiago,..." class="form-control" th:value="${search}"/>
         </div>
         <div class="form-group">
             <button type="submit" class="btn btn-default" th:text="#{tosearch}"></button>
@@ -45,15 +45,15 @@ $(document).ready(function() {
 
     <hr/>
 
-    <!--Show the User's journeys (if he is signed in)-->
+    <!--Show the User's journeys (if User is signed in)-->
     <h2 sec:authorize="authenticated" th:text="#{yourjourneys}"></h2>
     <ul class="list-unstyled">
         <li th:each="journey : ${journeys}">
             <a th:if="${journey.ownedByCurrentUser}" th:href="${'/journeys/' + journey.id}" th:text="${journey.name}"></a>
         </li>
     </ul>
-    <!--Show the total kilometers of all the User's journeys (if he is signed in)-->
-    <div th:if="${totalKilometers > 0}" sec:authorize="authenticated">
+    <!--Show the total kilometers of all the User's journeys (if User is signed in and is not using the search functionality)-->
+    <div th:if="${totalKilometers > 0 && search == null}" sec:authorize="authenticated">
         <strong th:text="#{totaldistance1} + ${#numbers.formatDecimal(totalKilometers, 1, 1)} + ' ' + #{totaldistance2}"></strong>
     </div>
 
