@@ -27,6 +27,7 @@ $(document).ready(function() {
             </button>
         </form>
         <a sec:authorize="anonymous" href="/login" class="pull-right" th:text="#{tologin}"></a>
+        <a sec:authorize="anonymous" href="/registration" class="pull-right" th:text="#{registerlink}"></a>
         <h1 th:text="#{headerstart}"></h1>
     </div>
 
