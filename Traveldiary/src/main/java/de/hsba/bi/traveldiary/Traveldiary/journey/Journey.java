@@ -24,7 +24,10 @@ public class Journey {
     private List<JourneyStage> stages;
 
     //For the publishing feature
+    @Basic(optional = false)
     private boolean forAll;
+
+    private String description;
 
     //Default Constructor
     public Journey() {
@@ -96,5 +99,13 @@ public class Journey {
 
     public void setForAll(boolean forAll) {
         this.forAll = forAll;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout}">
 <body>
 <div layout:fragment="content">
-    <h1>Kein Zutritt!</h1>
-    <p><strong>Sie sind nicht authorisiert auf diese Seite zuzugreifen. Bitte gehen Sie zurück zur vorherigen Seite oder klicken Sie auf den Link.</strong></p>
-    <p><strong><a href="/">Startseite</a></strong></p>
+    <h1 th:text="#{noenter}"></h1>
+    <p><strong th:text="#{401}"></strong></p>
+    <p><strong><a href="/" th:text="#{startpage}"></a></strong></p>
 </div>
 </body>
 </html>

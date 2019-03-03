@@ -2,10 +2,8 @@ package de.hsba.bi.traveldiary.Traveldiary.web;
 
 import de.hsba.bi.traveldiary.Traveldiary.journey.JourneyService;
 import de.hsba.bi.traveldiary.Traveldiary.journey.JourneyStage;
-import de.hsba.bi.traveldiary.Traveldiary.user.User;
 import de.hsba.bi.traveldiary.Traveldiary.web.exception.ForbiddenException;
 import de.hsba.bi.traveldiary.Traveldiary.web.exception.NotFoundException;
-import de.hsba.bi.traveldiary.Traveldiary.web.exception.UnauthorizedException;
 import de.hsba.bi.traveldiary.Traveldiary.web.validation.JourneyFormAssembler;
 import de.hsba.bi.traveldiary.Traveldiary.web.validation.JourneyStageForm;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -46,9 +44,8 @@ public class JourneyStageController {
             model.addAttribute("stageForm", journeyFormAssembler.toForm(getStage(id)));
             return "journeys/stage";
         }
-        else if (User.getCurrentUser() == null) {
-            throw new UnauthorizedException();
-        } else throw new ForbiddenException();
+        //no UnauthorizedException needed, because the Edit Stages pages are never public
+         else throw new ForbiddenException();
     }
 
     //Updates the stage

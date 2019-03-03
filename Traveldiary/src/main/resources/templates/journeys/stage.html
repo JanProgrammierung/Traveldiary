@@ -13,7 +13,7 @@
     <!--Delete stage button-->
     <form th:if="${stage.journey.ownedByCurrentUser}" th:action="${'/stages/' + stage.id + '/delete'}" method="post" class="form" id="deleteForm">
         <div class="form-group">
-            <button type="submit" class="btn btn-danger" th:text="#{delete}"></button>
+            <button type="submit" class="btn btn-danger" th:text="#{todelete}"></button>
         </div>
     </form>
 

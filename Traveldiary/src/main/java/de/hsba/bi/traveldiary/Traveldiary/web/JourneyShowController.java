@@ -3,8 +3,10 @@ package de.hsba.bi.traveldiary.Traveldiary.web;
 import de.hsba.bi.traveldiary.Traveldiary.journey.Journey;
 import de.hsba.bi.traveldiary.Traveldiary.journey.JourneyService;
 import de.hsba.bi.traveldiary.Traveldiary.journey.JourneyStage;
+import de.hsba.bi.traveldiary.Traveldiary.user.User;
 import de.hsba.bi.traveldiary.Traveldiary.web.exception.ForbiddenException;
 import de.hsba.bi.traveldiary.Traveldiary.web.exception.NotFoundException;
+import de.hsba.bi.traveldiary.Traveldiary.web.exception.UnauthorizedException;
 import de.hsba.bi.traveldiary.Traveldiary.web.validation.JourneyForm;
 import de.hsba.bi.traveldiary.Traveldiary.web.validation.JourneyFormAssembler;
 import de.hsba.bi.traveldiary.Traveldiary.web.validation.JourneyStageForm;
@@ -47,7 +49,8 @@ public class JourneyShowController {
             model.addAttribute("journeyForm", journeyFormAssembler.toForm(journey));
             model.addAttribute("journeyStageForm", new JourneyStageForm());
             return "journeys/show";
-            //no UnauthorizedException needed, because the Edit Stages pages are never public
+        } else if (User.getCurrentUser() == null) {
+                throw new UnauthorizedException();
         } else throw new ForbiddenException();
     }
 

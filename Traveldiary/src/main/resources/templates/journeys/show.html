@@ -20,6 +20,11 @@
             <input name="name" type="text" class="form-control" th:field="*{name}"/>
             <span class="text-danger" th:errors="*{name}"/>
         </div>
+        <div class="form-group">
+            <label th:text="#{description}"></label>
+            <input name="description" type="text" class="form-control" th:field="*{description}"/>
+            <label class="text-danger" th:errors="*{description}"/>
+        </div>
             <div class="ui checkbox">
                 <input type="checkbox" name="forAll" onchange="journey.isForAll()" th:checked="${journey.forAll}">
                 <label th:text="#{makepublic}"></label>

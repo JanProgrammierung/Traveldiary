@@ -12,6 +12,8 @@ public class JourneyForm {
 
     private boolean forAll;
 
+    private String description;
+
     //Getter and Setter
     public String getName() {
         return name;
@@ -27,5 +29,13 @@ public class JourneyForm {
 
     public void setForAll(boolean forAll) {
         this.forAll = forAll;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
