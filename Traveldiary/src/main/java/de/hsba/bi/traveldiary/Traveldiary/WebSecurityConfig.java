@@ -21,8 +21,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
                 .antMatchers("/registration").permitAll()
-                .antMatchers("/journeys/**").permitAll()
-                .antMatchers("/stages/**").authenticated() //Furthermore, only the User who created the stage can access it (see JourneyStageController)
+                .antMatchers("/journeys/**").permitAll() //necessary, since a journal can be public; if it is not public, only the owner can access it
                 .antMatchers("/js/**").permitAll() //Permit JS resources
                 .antMatchers("/img/**").permitAll() //Permit IMG resources
                 .antMatchers("/css/**").permitAll() //Permit CSS resources

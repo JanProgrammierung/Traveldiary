@@ -21,12 +21,11 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
-	testCompile('com.h2database:h2')
-	compile('org.springframework.boot:spring-boot-devtools')
-	compile('org.springframework.boot:spring-boot-starter-data-jpa')
-	compile('nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:2.3.0')
-	compile('org.springframework.boot:spring-boot-starter-web-services')
-	compile('org.thymeleaf.extras:thymeleaf-extras-springsecurity5')
-
-	runtime('com.h2database:h2')
+	testImplementation 'com.h2database:h2'
+	implementation 'org.springframework.boot:spring-boot-devtools'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:2.3.0'
+	implementation 'org.springframework.boot:spring-boot-starter-web-services'
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+	runtime 'com.h2database:h2'
 }

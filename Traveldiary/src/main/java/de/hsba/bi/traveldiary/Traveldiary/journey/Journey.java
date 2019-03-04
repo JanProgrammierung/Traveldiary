@@ -20,13 +20,13 @@ public class Journey {
 
     //Delete stages if journey is deleted
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "journey")
-    @OrderBy
     private List<JourneyStage> stages;
 
     //For the publishing feature
     @Basic(optional = false)
     private boolean forAll;
 
+    //Optional
     private String description;
 
     //Default Constructor
