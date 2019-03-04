@@ -36,13 +36,7 @@ public class JourneyIndexController {
     //totalKilometers model attribute is the kilometer sum of all journeys of a User
     @ModelAttribute("totalKilometers")
     public double totalKilometers() {
-        double totalKilometers = 0.00;
-        for (Journey journey : journeyService.findJourneys("")) {
-            if (journey.isOwnedByCurrentUser()) {
-                totalKilometers += journey.computeKilometers();
-            }
-        }
-        return totalKilometers;
+        return journeyService.computeTotalKilometers();
     }
 
     //Opens the index page

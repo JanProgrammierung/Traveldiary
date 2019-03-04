@@ -5,12 +5,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.authentication.TestingAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import static junit.framework.TestCase.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -20,24 +20,26 @@ public class UserRepositoryIntegrationTest {
     @Autowired
     private UserRepository repository;
 
+    //create Users in order to create journeys / for the test to function correctly
+    User olaf = new User("Olaf", "olaf");
+    User jonas = new User("Jonas", "jonas");
+    User mathilde = new User("Mathilde", "mathilde");
+
     @Before
     public void setUp() {
-        //delete the Users created by the UserService's init method
-        repository.deleteAll();
-        //synchronize session data with database
-        repository.flush();
+        repository.save(olaf);
+        SecurityContextHolder.getContext().setAuthentication(
+                new TestingAuthenticationToken(new UserAdapter(olaf), null));
+        repository.save(jonas);
+        SecurityContextHolder.getContext().setAuthentication(
+                new TestingAuthenticationToken(new UserAdapter(jonas), null));
+        repository.save(mathilde);
+        SecurityContextHolder.getContext().setAuthentication(
+                new TestingAuthenticationToken(new UserAdapter(mathilde), null));
     }
 
     @Test
     public void shouldWork() {
-        //create new Users
-        User olaf = new User("Olaf");
-        User jonas = new User("Jonas");
-        User mathilde = new User("Mathilde");
-        repository.save(olaf);
-        repository.save(jonas);
-        repository.save(mathilde);
-
         //test findByName query method
         assertEquals(olaf, repository.findByName("Olaf"));
         assertEquals(jonas, repository.findByName("Jonas"));

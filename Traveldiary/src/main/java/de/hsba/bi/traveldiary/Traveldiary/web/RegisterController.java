@@ -39,8 +39,13 @@ public class RegisterController {
 
     //Creates a new User
     @PostMapping("/registration")
-    public String createUser(@ModelAttribute("registerForm")@Valid RegisterForm registerForm, BindingResult bindingResult){
+    public String createUser(@ModelAttribute("registerForm")@Valid RegisterForm registerForm, BindingResult bindingResult, Model model){
         if (bindingResult.hasErrors()){
+            return "registration";
+        }
+        if (userService.existsUserName(registerForm.getName())) {
+            boolean usernameExists = true;
+            model.addAttribute("usernameExists", usernameExists);
             return "registration";
         }
         User user = new User();

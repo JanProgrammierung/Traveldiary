@@ -4,7 +4,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.PostConstruct;
 import java.util.List;
 
 @Service
@@ -19,15 +18,6 @@ public class UserService {
     public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
-    }
-
-    //Delete before submitting
-    @PostConstruct
-    public void init() {
-        if (userRepository.count() == 0) {
-            createUser("JanL", "jan123");
-            createUser("Random", "password");
-        }
     }
 
     public void createUserByEntity(User user){
@@ -45,5 +35,13 @@ public class UserService {
 
     public List<User> findUsers() {
         return userRepository.findUsers();
+    }
+
+    //Check if User already exists (for registration)
+    public boolean existsUserName (String name) {
+        if (userRepository.findByName(name) != null) {
+            return true;
+        }
+        return false;
     }
 }

@@ -57,7 +57,7 @@ public class Journey {
         return stages;
     }
 
-    //calculates the kilometer sum of all stages in the journey
+    //Calculates the kilometer sum of all stages in the journey
     public double computeKilometers() {
         double kilometers = 0;
         for (JourneyStage stage : getStages()) {
@@ -107,5 +107,10 @@ public class Journey {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    //WARNING: Security Risk; only enable the setOwner method for JourneyIntegrationTest!
+    public void setOwner(User owner) {
+        this.owner = owner;
     }
 }

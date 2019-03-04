@@ -11,8 +11,10 @@ public class JourneyStageForm {
     })
     private String name;
 
+    //Default set to 0.00 because if the first stage is added to the journey, kilometer is always 0
+    //Except for the starting stage, kilometer is always >= 0.1 (validation in show.html)
     @NotNull(message = "{validation.kilometer.notEmpty}")
-    private Double kilometer;
+    private Double kilometer = 0.00;
 
     private String notes;
 

@@ -52,4 +52,15 @@ public class JourneyService {
     public JourneyStage save(JourneyStage stage) {
         return stageRepository.save(stage);
     }
+
+    //Calculates the kilometer sum of all journeys of a User
+    public double computeTotalKilometers() {
+        double totalKilometers = 0.00;
+        for (Journey journey : findJourneys("")) {
+            if (journey.isOwnedByCurrentUser()) {
+                totalKilometers += journey.computeKilometers();
+            }
+        }
+        return totalKilometers;
+    }
 }

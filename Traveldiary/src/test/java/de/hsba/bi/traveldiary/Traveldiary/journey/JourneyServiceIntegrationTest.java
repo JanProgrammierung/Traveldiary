@@ -1,15 +1,22 @@
 package de.hsba.bi.traveldiary.Traveldiary.journey;
 
+import de.hsba.bi.traveldiary.Traveldiary.user.User;
+import de.hsba.bi.traveldiary.Traveldiary.user.UserAdapter;
+import de.hsba.bi.traveldiary.Traveldiary.user.UserRepository;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.authentication.TestingAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import static junit.framework.TestCase.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNull;
+
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -19,28 +26,32 @@ public class JourneyServiceIntegrationTest {
     @Autowired
     private JourneyService service;
 
+    @Autowired
+    private UserRepository userRepository;
+
+    //create User in order to create journeys / for the test to function correctly
+    private User testUser = new User("Test", "password");
+
+    @Before
+    public void setUp() {
+        userRepository.save(testUser);
+        SecurityContextHolder.getContext().setAuthentication(
+                new TestingAuthenticationToken(new UserAdapter(testUser), null));
+    }
+
     @Test
     public void shouldWork() {
-        //erstellen und speichern von 3 Reisen
-        Journey japan = new Journey();
-        Journey argentina = new Journey();
-        Journey australia = new Journey();
-        japan.setName("Japan");
-        argentina.setName("Argentina");
-        australia.setName("Australia");
-        service.save(japan);
-        service.save(argentina);
-        service.save(australia);
+        //create and save 3 journeys
+        Journey japan = createJourney("Japan");
+        Journey argentina = createJourney("Argentina");
+        Journey australia = createJourney("Australia");
 
-        //erstellen und speichern von 3 Etappen
-        JourneyStage tokyo = new JourneyStage();
-        JourneyStage cordoba = new JourneyStage();
-        JourneyStage melbourne = new JourneyStage();
-        service.save(tokyo);
-        service.save(cordoba);
-        service.save(melbourne);
+        //create and save 3 stages
+        JourneyStage tokyo = createJourneyStage("Tokyo");
+        JourneyStage cordoba = createJourneyStage("Cordoba");
+        JourneyStage melbourne = createJourneyStage("Melbourne");
 
-        //zusammenfügen von Reisen und Etappen
+        //add the stages to the journeys
         service.addJourneyStage(japan, tokyo);
         service.addJourneyStage(argentina, cordoba);
         service.addJourneyStage(australia, melbourne);
@@ -53,9 +64,9 @@ public class JourneyServiceIntegrationTest {
         assertEquals(australia, service.getJourney(australia.getId()));
 
         //test findJourneys method (includes findByStage query)
-        assertTrue(service.findJourneys("Japan").contains(japan));
-        assertTrue(service.findJourneys("Argentina").contains(argentina));
-        assertTrue(service.findJourneys("Australia").contains(australia));
+        assertTrue(service.findJourneys("Tokyo").contains(japan));
+        assertTrue(service.findJourneys("Cordoba").contains(argentina));
+        assertTrue(service.findJourneys("Melbourne").contains(australia));
 
         //test findStage method
         assertEquals(tokyo, service.findStage(tokyo.getId()));
@@ -71,6 +82,23 @@ public class JourneyServiceIntegrationTest {
         assertNull(service.getJourney(japan.getId()));
         assertNull(service.getJourney(argentina.getId()));
         assertNull(service.getJourney(australia.getId()));
+    }
 
+    //method in order to create a new journey and set the required fields
+    private Journey createJourney(String name) {
+        Journey journey = new Journey();
+        journey.setName(name);
+        //WARNING: Security Risk; only enable the setOwner method for JourneyIntegrationTest! Go to Journey class and uncomment the method
+        journey.setOwner(testUser);
+        journey.setForAll(true);
+        return service.save(journey);
+    }
+
+    //method in order to create a new journey and set the required fields
+    private JourneyStage createJourneyStage(String name) {
+        JourneyStage journeyStage = new JourneyStage();
+        journeyStage.setName(name);
+        journeyStage.setKilometer(1.00);
+        return service.save(journeyStage);
     }
 }
