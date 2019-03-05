@@ -25,6 +25,7 @@ public class UserRepositoryIntegrationTest {
     User jonas = new User("Jonas", "jonas");
     User mathilde = new User("Mathilde", "mathilde");
 
+    //save the Users
     @Before
     public void setUp() {
         repository.save(olaf);

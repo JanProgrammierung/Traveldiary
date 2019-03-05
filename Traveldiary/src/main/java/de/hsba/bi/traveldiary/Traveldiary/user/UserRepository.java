@@ -7,9 +7,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-//WARNING: Security Risk; only make public for JourneyIntegrationTest!
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+interface UserRepository extends JpaRepository<User, Long> {
 
     //Query to return User via name
     @Query("select u from User u where u.name = :name")

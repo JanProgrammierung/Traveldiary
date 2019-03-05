@@ -2,7 +2,7 @@ package de.hsba.bi.traveldiary.Traveldiary.journey;
 
 import de.hsba.bi.traveldiary.Traveldiary.user.User;
 import de.hsba.bi.traveldiary.Traveldiary.user.UserAdapter;
-import de.hsba.bi.traveldiary.Traveldiary.user.UserRepository;
+import de.hsba.bi.traveldiary.Traveldiary.user.UserService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,6 +17,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertNull;
 
+//Please read: In order for the test to function correctly, it is necessary to enable a specific method; check the createJourney() method below and read the WARNING comment
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -26,15 +27,17 @@ public class JourneyServiceIntegrationTest {
     @Autowired
     private JourneyService service;
 
+    //required for creating a User who can create / edit journeys
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     //create User in order to create journeys / for the test to function correctly
     private User testUser = new User("Test", "password");
 
+    //save the User
     @Before
     public void setUp() {
-        userRepository.save(testUser);
+        testUser = userService.createUser(testUser);
         SecurityContextHolder.getContext().setAuthentication(
                 new TestingAuthenticationToken(new UserAdapter(testUser), null));
     }
@@ -89,7 +92,7 @@ public class JourneyServiceIntegrationTest {
         Journey journey = new Journey();
         journey.setName(name);
         //WARNING: Security Risk; only enable the setOwner method for JourneyIntegrationTest! Go to Journey class and uncomment the method
-        journey.setOwner(testUser);
+        //journey.setOwner(testUser);
         journey.setForAll(true);
         return service.save(journey);
     }

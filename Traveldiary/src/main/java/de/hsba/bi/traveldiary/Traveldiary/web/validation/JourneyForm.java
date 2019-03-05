@@ -12,6 +12,7 @@ public class JourneyForm {
 
     private boolean forAll;
 
+    @Size(max = 255, message = "{validation.description.notTooLong}")
     private String description;
 
     //Getter and Setter

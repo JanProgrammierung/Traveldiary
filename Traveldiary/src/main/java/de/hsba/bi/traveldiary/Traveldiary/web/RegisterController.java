@@ -48,8 +48,7 @@ public class RegisterController {
             model.addAttribute("usernameExists", usernameExists);
             return "registration";
         }
-        User user = new User();
-        this.userService.createUserByEntity(registerFormAssembler.update(user, registerForm));
+        this.userService.createUser(registerFormAssembler.update(new User(), registerForm));
         return "redirect:/index";
     }
 }
