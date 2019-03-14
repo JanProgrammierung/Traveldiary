@@ -20,7 +20,7 @@
         <div class="form-group">
             <label for="inputName" class="col-sm-2 control-label" th:text="#{username}"></label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="inputName" name="name" th:field="*{name}" minlength="4" required/>
+                <input type="text" class="form-control" id="inputName" name="name" th:field="*{name}"/>
                 <label class="text-danger" th:if="${usernameExists}" th:text="#{validation.username.taken}"/>
                 <label class="text-danger" th:errors="*{name}"/>
             </div>
@@ -29,7 +29,7 @@
         <div class="form-group">
             <label for="inputPassword" class="col-sm-2 control-label" th:field="*{password}" th:text="#{thepassword}"></label>
             <div class="col-sm-10">
-                <input type="password" class="form-control" id="inputPassword" name="password" minlength="6" required/>
+                <input type="password" class="form-control" id="inputPassword" name="password"/>
                 <label class="text-danger" th:errors="*{password}"/>
             </div>
         </div>

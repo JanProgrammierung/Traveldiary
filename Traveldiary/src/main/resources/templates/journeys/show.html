@@ -70,10 +70,10 @@
             <textarea name="description" type="text" class="form-control" th:field="*{description}"></textarea>
             <label class="text-danger" th:errors="*{description}"/>
         </div>
-            <div class="ui checkbox">
-                <input type="checkbox" name="forAll" onchange="journey.isForAll()" th:checked="${journey.forAll}">
-                <label th:text="#{makepublic}"></label>
-            </div>
+        <div class="ui checkbox">
+            <input type="checkbox" name="forAll" onchange="journey.isForAll()" th:checked="${journey.forAll}">
+            <label th:text="#{makepublic}"></label>
+        </div>
         <!--User has to press the Submit button to commit changes-->
         <div class="form-group">
             <button th:text="#{change}" type="submit" class="btn btn-primary"></button>
@@ -89,7 +89,7 @@
         </tr>
         <tr th:each="stage : ${journey.stages}">
             <td th:text="${stage.name}"></td>
-            <!--If kilometer is empty (starting point or no distance between 2 stage goals), do not show any number-->
+            <!--If kilometer is empty (starting point), do not show any number-->
             <td th:if="${stage.kilometer > 0}" th:text="${#numbers.formatDecimal(stage.kilometer, 1, 1)}"></td>
             <td th:if="${stage.kilometer == 0}"></td>
             <td th:text="${stage.notes}"></td>
