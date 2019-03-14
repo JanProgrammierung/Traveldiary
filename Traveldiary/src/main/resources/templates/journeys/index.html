@@ -3,8 +3,12 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{layout}">
-<head> <!--JSS to enable the change language functionality-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<head>
+
+    <!--JS to enable the change language functionality-->
+    <script src="/js/international.js"></script>
+   <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
     <script type="text/javascript">
 $(document).ready(function() {
     $("#locales").change(function () {
@@ -14,9 +18,80 @@ $(document).ready(function() {
         }
     });
 });
-</script>
+
+</script> -->
+
+<!--CSS-->
+    <style>
+
+        body {
+          background-image: url("/img/background.jpg");
+        }
+
+        .page-header .pull-right {
+    margin-left: 3em;
+}
+
+form.form-inline.form-journeys.form-group.help {
+    margin-left: 1em;
+}
+
+    hr {
+    border: 2px solid white;
+}
+
+
+.page-header {
+    margin-top: 0;
+    background: #82c9e0;
+}
+
+.page-header h1 {
+    margin-top: 0;
+}
+
+.page-header h1 {
+    margin-bottom: 0;
+}
+
+.page-header {
+    margin-bottom: 0;
+    padding: 0;
+}
+
+.page-header {
+    margin-bottom: 1em;
+}
+
+.page-header {
+    padding: 2em;
+}
+
+.page-header * {
+    color: white;
+}
+
+
+#weltkarte-container img {
+    max-width: 50%;
+    height: auto;
+    float: left;
+}
+
+#weltkarte-container p {
+    float: left;
+    max-width:50%;
+    padding-left: 1em;
+}
+
+#weltkarte-container {
+    margin-top: 1em;
+}
+
+    </style>
 </head>
 <body>
+
 <!--Show either Login or Username logout-->
 <div layout:fragment="content">
     <div class="page-header">
@@ -32,12 +107,16 @@ $(document).ready(function() {
     </div>
 
     <!--Search for a particular stage in all published journeys and the User's journeys-->
-    <form action="/journeys" method="get" class="form-inline">
+    <form action="/journeys" method="get" class="form-inline form-yourneys">
         <div class="form-group">
             <input name="search" type="text" placeholder="Melbourne, Santiago,..." class="form-control" th:value="${search}"/>
         </div>
         <div class="form-group">
-            <button type="submit" class="btn btn-default" th:text="#{tosearch}"></button>
+            <button type="submit" class="btn btn-default" th:text="#{tosearch}">
+
+
+            </button>
+
         </div>
         <div class="form-group help">
             <span th:text="#{tosearchdescription}"></span>
@@ -82,16 +161,25 @@ $(document).ready(function() {
         <div class="form-group">
             <span class="text-danger" th:errors="*{name}"/>
         </div>
+        <hr>
     </form>
 
     <!--Change language functionality / drop down menu-->
-    <span th:text="#{lang.change}"></span>:
-    <select id="locales">
-        <option value=""></option>
-        <option value="en" th:text="#{lang.eng}"></option>
-        <option value="de" th:text="#{lang.de}"></option>
-    </select>
+    <div id="locales-change">
+        <span th:text="#{lang.change}"></span>:
+        <select id="locales">
+            <option value=""></option>
+            <option value="en" th:text="#{lang.eng}"></option>
+            <option value="de" th:text="#{lang.de}"></option>
+        </select>
+    </div>
 
+    <div id="weltkarte-container">
+        <img src="/img/weltkarte.jpg">
+        <p>
+            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+        </p>
+    </div>
 </div>
 </body>
 </html>
