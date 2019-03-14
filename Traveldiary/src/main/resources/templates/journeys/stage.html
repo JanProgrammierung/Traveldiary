@@ -23,31 +23,49 @@
 <div layout:fragment="content">
     <!--Show text and name of the stage-->
     <div class="page-header">
-        <h1 th:text="#{changestage1} + ${stage.journey.name} + ' ' + #{changestage2}"></h1>
+        <h1 th:if="${stage.journey.getStages().indexOf(stage) != 0}" th:text="#{changestage1} + ${stage.journey.getStages().indexOf(stage)} + '. ' + #{changestage2} + ${stage.journey.name} + ' ' + #{changestage3}"></h1>
+        <h1 th:if="${stage.journey.getStages().indexOf(stage) == 0}" th:text="#{changefirststage1} + ${stage.journey.name} + ' ' + #{changefirststage2}"></h1>
     </div>
 
     <!--Delete stage button-->
-    <form th:if="${stage.journey.ownedByCurrentUser}" th:action="${'/stages/' + stage.id + '/delete'}" method="post" class="form" id="deleteForm">
+    <form th:action="${'/stages/' + stage.id + '/delete'}" method="post" class="form" id="deleteForm">
         <div class="form-group">
             <button type="submit" class="btn btn-danger" th:text="#{todelete}"></button>
         </div>
     </form>
 
-    <!--Change name, kilometer, and/or notes of the stage-->
-    <form th:action="${'/stages/' + stage.id}" method="post" th:object="${stageForm}">
+    <!--Change name, kilometer, and/or notes of the stage (if it is not the first stage)-->
+    <form th:if="${stage.journey.getStages().indexOf(stage) != 0}" th:action="${'/stages/' + stage.id}" method="post" th:object="${stageForm}">
         <div class="form-group">
             <label th:text="#{thename}"></label>
-            <input name="name" th:field="*{name}" type="text" class="form-control" />
+            <input name="name" th:field="*{name}" type="text" class="form-control"/>
             <label class="text-danger" th:errors="*{name}"/>
         </div>
         <div class="form-group">
-            <label th:text="#{kilometer}"></label>
-            <input name="kilometer" th:field="*{kilometer}" type="number" min="0" step="0.1" class="form-control"/>
+            <label th:text="#{thekilometer}"></label>
+            <input name="kilometer" th:field="*{kilometer}" type="number" step="0.1" class="form-control"/>
             <label class="text-danger" th:errors="*{kilometer}"/>
         </div>
         <div class="form-group">
             <label th:text="#{notes}"></label>
-            <input name="notes" th:field="*{notes}" type="text" class="form-control" />
+            <input name="notes" th:field="*{notes}" type="text" class="form-control"/>
+            <label class="text-danger" th:errors="*{notes}"/>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary" th:text="#{edit}"></button>
+        </div>
+    </form>
+
+    <!--Change name and/or notes of the first stage-->
+    <form th:if="${stage.journey.getStages().indexOf(stage) == 0}" th:action="${'/stages/' + stage.id + '/first'}" method="post" th:object="${stageForm}">
+        <div class="form-group">
+            <label th:text="#{thename}"></label>
+            <input name="name" th:field="*{name}" type="text" class="form-control"/>
+            <label class="text-danger" th:errors="*{name}"/>
+        </div>
+        <div class="form-group">
+            <label th:text="#{notes}"></label>
+            <input name="notes" th:field="*{notes}" type="text" class="form-control"/>
             <label class="text-danger" th:errors="*{notes}"/>
         </div>
         <div class="form-group">

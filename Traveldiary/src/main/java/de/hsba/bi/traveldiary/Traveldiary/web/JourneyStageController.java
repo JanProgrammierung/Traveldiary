@@ -4,6 +4,7 @@ import de.hsba.bi.traveldiary.Traveldiary.journey.JourneyService;
 import de.hsba.bi.traveldiary.Traveldiary.journey.JourneyStage;
 import de.hsba.bi.traveldiary.Traveldiary.web.exception.ForbiddenException;
 import de.hsba.bi.traveldiary.Traveldiary.web.exception.NotFoundException;
+import de.hsba.bi.traveldiary.Traveldiary.web.validation.FirstJourneyStageForm;
 import de.hsba.bi.traveldiary.Traveldiary.web.validation.JourneyFormAssembler;
 import de.hsba.bi.traveldiary.Traveldiary.web.validation.JourneyStageForm;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -41,8 +42,12 @@ public class JourneyStageController {
     public String show(Model model, @PathVariable("id") Long id) {
         JourneyStage stage = getStage(id);
         if (stage.getJourney().isOwnedByCurrentUser()) {
-            model.addAttribute("stageForm", journeyFormAssembler.toForm(getStage(id)));
-            return "journeys/stage";
+            if (stage.getJourney().getStages().indexOf(stage) == 0) {
+                model.addAttribute("stageForm", journeyFormAssembler.toFormFirst(getStage(id)));
+            } else {
+                model.addAttribute("stageForm", journeyFormAssembler.toForm(getStage(id)));
+            }
+                return "journeys/stage";
         }
         //no UnauthorizedException needed, because the Edit Stages pages are never public
          else throw new ForbiddenException();
@@ -58,6 +63,19 @@ public class JourneyStageController {
         }
         JourneyStage stage = getStage(id);
         journeyService.save(journeyFormAssembler.update(stage, form));
+        return "redirect:/journeys/" + stage.getJourney().getId();
+    }
+
+    //Updates the first stage
+    @PostMapping(path = "/first")
+    public String updateFirst(
+            @PathVariable("id") Long id,
+            @ModelAttribute("stageForm") @Valid FirstJourneyStageForm form, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "journeys/stage";
+        }
+        JourneyStage stage = getStage(id);
+        journeyService.save(journeyFormAssembler.updateFirst(stage, form));
         return "redirect:/journeys/" + stage.getJourney().getId();
     }
 

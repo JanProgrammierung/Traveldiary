@@ -36,4 +36,18 @@ public class JourneyFormAssembler {
         stage.setNotes(form.getNotes());
         return stage;
     }
+
+    public FirstJourneyStageForm toFormFirst(JourneyStage stage) {
+        FirstJourneyStageForm form = new FirstJourneyStageForm();
+        form.setName(stage.getName());
+        form.setNotes(stage.getNotes());
+        return form;
+    }
+
+    public JourneyStage updateFirst(JourneyStage stage, FirstJourneyStageForm form) {
+        stage.setName(form.getName());
+        stage.setKilometer(form.getKilometer());
+        stage.setNotes(form.getNotes());
+        return stage;
+    }
 }

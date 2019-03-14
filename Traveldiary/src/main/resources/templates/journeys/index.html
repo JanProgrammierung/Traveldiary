@@ -105,11 +105,7 @@ form.form-inline.form-journeys.form-group.help {
             <input name="search" type="text" placeholder="Melbourne, Santiago,..." class="form-control" th:value="${search}"/>
         </div>
         <div class="form-group">
-            <button type="submit" class="btn btn-default" th:text="#{tosearch}">
-
-
-            </button>
-
+            <button type="submit" class="btn btn-default" th:text="#{tosearch}"></button>
         </div>
         <div class="form-group help">
             <span th:text="#{tosearchdescription}"></span>
@@ -154,7 +150,7 @@ form.form-inline.form-journeys.form-group.help {
         <div class="form-group">
             <span class="text-danger" th:errors="*{name}"/>
         </div>
-        <hr>
+        <hr/>
     </form>
 
     <!--Change language functionality / drop down menu-->

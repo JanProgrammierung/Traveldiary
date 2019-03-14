@@ -1,9 +1,12 @@
 package de.hsba.bi.traveldiary.Traveldiary.journey;
 
 import de.hsba.bi.traveldiary.Traveldiary.user.User;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class Journey {
@@ -27,6 +30,7 @@ public class Journey {
     private boolean forAll;
 
     //Optional
+    @Length(max = 10000)
     private String description;
 
     //Default Constructor

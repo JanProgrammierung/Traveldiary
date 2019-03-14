@@ -1,10 +1,9 @@
 package de.hsba.bi.traveldiary.Traveldiary.web.validation;
 
-import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-public class JourneyStageForm {
+public class FirstJourneyStageForm {
 
     @Size.List({
             @Size(min = 3, message = "{validation.stagename.notTooShort}"),
@@ -12,10 +11,10 @@ public class JourneyStageForm {
     })
     private String name;
 
-    //Except for the starting stage, kilometer is always >= 0.1
-    @DecimalMin(value = "0.1", message = "{validation.kilometer.notTooShort}")
+    //Default set to 0.00 because if the first stage is added to the journey, kilometer is always 0
+    //Except for the starting stage, kilometer is always >= 0.1 (see JourneyStageForm)
     @NotNull(message = "{validation.kilometer.notEmpty}")
-    private Double kilometer;
+    private Double kilometer = 0.00;
 
     private String notes;
 
@@ -30,10 +29,6 @@ public class JourneyStageForm {
 
     public Double getKilometer() {
         return kilometer;
-    }
-
-    public void setKilometer(Double kilometer) {
-        this.kilometer = kilometer;
     }
 
     public String getNotes() {

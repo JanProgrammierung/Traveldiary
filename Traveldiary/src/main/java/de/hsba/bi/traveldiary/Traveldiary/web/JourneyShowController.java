@@ -7,6 +7,7 @@ import de.hsba.bi.traveldiary.Traveldiary.user.User;
 import de.hsba.bi.traveldiary.Traveldiary.web.exception.ForbiddenException;
 import de.hsba.bi.traveldiary.Traveldiary.web.exception.NotFoundException;
 import de.hsba.bi.traveldiary.Traveldiary.web.exception.UnauthorizedException;
+import de.hsba.bi.traveldiary.Traveldiary.web.validation.FirstJourneyStageForm;
 import de.hsba.bi.traveldiary.Traveldiary.web.validation.JourneyForm;
 import de.hsba.bi.traveldiary.Traveldiary.web.validation.JourneyFormAssembler;
 import de.hsba.bi.traveldiary.Traveldiary.web.validation.JourneyStageForm;
@@ -47,7 +48,11 @@ public class JourneyShowController {
         Journey journey = getJourney(id);
         if (journey.isOwnedByCurrentUser() || journey.isForAll()) {
             model.addAttribute("journeyForm", journeyFormAssembler.toForm(journey));
-            model.addAttribute("journeyStageForm", new JourneyStageForm());
+            if (!journey.getStages().isEmpty()) {
+                model.addAttribute("journeyStageForm", new JourneyStageForm());
+            } else {
+                model.addAttribute("firstJourneyStageForm", new FirstJourneyStageForm());
+            }
             return "journeys/show";
         } else if (User.getCurrentUser() == null) {
                 throw new UnauthorizedException();
@@ -64,6 +69,20 @@ public class JourneyShowController {
             return "journeys/show";
         }
         journeyService.save(journeyFormAssembler.update(getJourney(id), journeyForm));
+        return "redirect:/journeys/" + id;
+    }
+
+    //Adds the first stage to the journey
+    @PostMapping(path = "/firststage")
+    @PreAuthorize("authenticated")
+    public String addFirstStage(Model model, @PathVariable("id") Long id,
+                           @ModelAttribute("firstJourneyStageForm") @Valid FirstJourneyStageForm stageForm, BindingResult stageBinding) {
+        Journey journey = getJourney(id);
+        if (stageBinding.hasErrors()) {
+            model.addAttribute("journeyForm", journeyFormAssembler.toForm(journey));
+            return "journeys/show";
+        }
+        journeyService.addJourneyStage(journey, journeyFormAssembler.updateFirst(new JourneyStage(), stageForm));
         return "redirect:/journeys/" + id;
     }
 
