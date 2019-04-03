@@ -91,8 +91,8 @@ public class JourneyServiceIntegrationTest {
     private Journey createJourney(String name) {
         Journey journey = new Journey();
         journey.setName(name);
-        //WARNING: Security Risk; only enable the setOwner method for JourneyIntegrationTest! Go to Journey class and uncomment the method
-        //journey.setOwner(testUser);
+        //WARNING: Security Risk; only enable the setOwner method for JourneyIntegrationTest! Go to Journey class and disable the method after finishing!
+        journey.setOwner(testUser);
         journey.setForAll(true);
         return service.save(journey);
     }

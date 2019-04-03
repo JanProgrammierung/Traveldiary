@@ -113,8 +113,8 @@ public class Journey {
         this.description = description;
     }
 
-    //WARNING: Security Risk; only enable the setOwner method for JourneyIntegrationTest!
-    /* public void setOwner(User owner) {
+    //WARNING: Security Risk; only enable the setOwner method for JourneyIntegrationTest! Disable after finishing the test!
+     public void setOwner(User owner) {
         this.owner = owner;
-    } */
+    }
 }

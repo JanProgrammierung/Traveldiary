@@ -30,19 +30,20 @@
     <!--CSS-->
     <style>
 
-        .glyphicon {
-            cursor: pointer;
-            margin-left: 0.5em;
-        }
-
-         input[type="checkbox"] {
-            position: static!important;
-            margin-left: 0px!important;
-        }
-
-        div#modal {
-            background: white;
-        }
+ .glyphicon {
+     cursor: pointer;
+     margin-left: 0.5em;
+}
+ input[type="checkbox"] {
+     position: static!important;
+     margin-left: 0!important;
+}
+ #modal {
+     background: white;
+}
+ hr {
+     border: 2px solid white;
+}
 
     </style>
 </head>
@@ -109,7 +110,7 @@
         </tr>
     </table>
 
-    <hr/>
+    <hr th:if="${journey.ownedByCurrentUser}">
 
     <div>
         <!--Add the first stage (only if the current User is the owner and if there are no other stages yet)-->
@@ -153,7 +154,7 @@
         </form>
     </div>
 
-    <hr/>
+    <hr>
     <!--Link back to the index / start page-->
     <p class="small">
         <a href="/journeys/" th:text="#{backtoindex}"></a>

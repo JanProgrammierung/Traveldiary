@@ -23,62 +23,45 @@ $(document).ready(function() {
 <!--CSS-->
     <style>
 
-        .page-header .pull-right {
-    margin-left: 3em;
+ .page-header .pull-right {
+     margin-left: 3em;
 }
-
-form.form-inline.form-journeys.form-group.help {
-    margin-left: 1em;
+ form.form-inline.form-journeys.form-group.help {
+     margin-left: 1em;
 }
-
-    hr {
-    border: 2px solid white;
+ hr {
+     border: 2px solid white;
 }
-
-.page-header {
-    margin-top: 0;
-    background: #82c9e0;
+ .page-header {
+     margin-top: 0;
+     background: #82c9e0;
 }
-
-.page-header h1 {
-    margin-top: 0;
+ .page-header h1 {
+     margin-top: 0;
+      margin-bottom: 0;
 }
-
-.page-header h1 {
-    margin-bottom: 0;
+ .page-header {
+     margin-bottom: 1em;
+     padding: 2em;
 }
-
-.page-header {
-    margin-bottom: 0;
-    padding: 0;
+ .page-header * {
+     color: white;
 }
-
-.page-header {
-    margin-bottom: 1em;
+ .language-color {
+     color:black
 }
-
-.page-header {
-    padding: 2em;
+ #weltkarte-container img {
+     max-width: 50%;
+     height: auto;
+     float: left;
 }
-
-.page-header * {
-    color: white;
+ #weltkarte-container p {
+     float: left;
+     max-width:50%;
+     padding-left: 1em;
 }
-
-#weltkarte-container img {
-    max-width: 50%;
-    height: auto;
-    float: left;
-}
-
-#weltkarte-container p {
-    float: left;
-    max-width:50%;
-    padding-left: 1em;
-}
-
-#weltkarte-container {
-    margin-top: 1em;
+ #weltkarte-container {
+     margin-top: 1em;
 }
 
     </style>
@@ -96,6 +79,15 @@ form.form-inline.form-journeys.form-group.help {
         </form>
         <a sec:authorize="anonymous" href="/login" class="pull-right" th:text="#{tologin}"></a>
         <a sec:authorize="anonymous" href="/registration" class="pull-right" th:text="#{registerlink}"></a>
+        <!--Change language functionality / drop down menu-->
+        <div id="locales-change" class="pull-right">
+            <span th:text="#{lang.change}"></span>:
+            <select id="locales">
+                <option value=""></option>
+                <option value="en" class="language-color" th:text="#{lang.eng}"></option>
+                <option value="de" class="language-color" th:text="#{lang.de}"></option>
+            </select>
+        </div>
         <h1 th:text="#{headerstart}"></h1>
     </div>
 
@@ -112,7 +104,7 @@ form.form-inline.form-journeys.form-group.help {
         </div>
     </form>
 
-    <hr/>
+    <hr sec:authorize="authenticated">
 
     <!--Show the User's journeys (if User is signed in)-->
     <h2 sec:authorize="authenticated" th:text="#{yourjourneys}"></h2>
@@ -126,7 +118,7 @@ form.form-inline.form-journeys.form-group.help {
         <strong th:text="#{totaldistance1} + ${#numbers.formatDecimal(totalKilometers, 1, 1)} + ' ' + #{totaldistance2}"></strong>
     </div>
 
-    <hr/>
+    <hr>
 
     <!--Show the all published journeys so far-->
     <h2 th:text="#{publishedjourneys}"></h2>
@@ -136,7 +128,7 @@ form.form-inline.form-journeys.form-group.help {
         </li>
     </ul>
 
-    <hr/>
+    <hr>
 
     <!--Create a new journey (only if User is signed in)-->
     <form sec:authorize="authenticated" id="createForm" action="/journeys" method="post" class="form-inline" th:object="${journeyForm}">
@@ -150,25 +142,13 @@ form.form-inline.form-journeys.form-group.help {
         <div class="form-group">
             <span class="text-danger" th:errors="*{name}"/>
         </div>
-        <hr/>
+        <hr>
     </form>
-
-    <!--Change language functionality / drop down menu-->
-    <div id="locales-change">
-        <span th:text="#{lang.change}"></span>:
-        <select id="locales">
-            <option value=""></option>
-            <option value="en" th:text="#{lang.eng}"></option>
-            <option value="de" th:text="#{lang.de}"></option>
-        </select>
-    </div>
 
     <!--Add picture of a world map-->
     <div id="weltkarte-container">
         <img src="/img/weltkarte.jpg">
-        <p>
-            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-        </p>
+        <p th:text="#{indexdescription}"></p>
     </div>
 </div>
 </body>
