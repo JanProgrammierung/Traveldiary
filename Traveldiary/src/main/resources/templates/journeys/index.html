@@ -7,10 +7,10 @@
 
     <!--JS to enable the change language functionality-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-
     <script>
+
 $(document).ready(function() {
-    $("#locales").change(function () {
+    $("#locales").change(function() {
         var selectedOption = $('#locales').val();
         if (selectedOption != ''){
             window.location.replace('?lang=' + selectedOption);

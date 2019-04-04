@@ -6,17 +6,18 @@
 <head>
     <!--JS for validation if the user clicks on delete-->
     <script>
-        window.onload = function() {
 
-            var deleteForm = document.getElementById("deleteForm")
+window.onload = function() {
 
-            deleteForm.addEventListener("submit",function(event){
-               if(confirm("Are you sure you want to delete this stage?") === false)
-               {
-                    event.preventDefault();
-               }
-            });
-        };
+    var deleteForm = document.getElementById("deleteForm")
+
+    deleteForm.addEventListener("submit", function(event) {
+        if (confirm("Are you sure you want to delete this stage?") === false) {
+            event.preventDefault();
+        }
+    });
+};
+
     </script>
 </head>
 <body>
